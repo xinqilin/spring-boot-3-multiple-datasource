@@ -22,7 +22,8 @@ import java.util.Objects;
 @EnableJpaRepositories(
         basePackageClasses = Person.class,
         entityManagerFactoryRef = "writeEntityManagerFactory",
-        transactionManagerRef = "writeTransactionManager"
+        transactionManagerRef = "writeTransactionManager",
+        basePackages = {"com.bill.multipleDatasource.dao"}
 )
 public class WriteJpaConfig {
 
