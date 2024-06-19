@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: multiple-datasource
+  datasource:
+    read-db:
+      url: jdbc:mysql://localhost:3306/write_db?useSSL=false&allowPublicKeyRetrieval=true
+      username: bill1
+      password: root1
+      driverClassName: com.mysql.cj.jdbc.Driver
+    write-db:
+      url: jdbc:mysql://localhost:3307/read_db?useSSL=false&allowPublicKeyRetrieval=true
+      username: bill2
+      password: root2
+      driverClassName: com.mysql.cj.jdbc.Driver
