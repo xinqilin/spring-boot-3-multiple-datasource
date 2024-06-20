@@ -2,6 +2,7 @@ spring:
   application:
     name: multiple-datasource
   datasource:
+#    initialize: false
     read-db:
       url: jdbc:mysql://localhost:3306/write_db?useUnicode=true&characterEncoding=utf-8
       username: bill1
@@ -12,7 +13,7 @@ spring:
       username: bill2
       password: root2
       driverClassName: com.mysql.cj.jdbc.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    hibernate:
-      ddl-auto: update
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    hibernate:
+#      ddl-auto: update
