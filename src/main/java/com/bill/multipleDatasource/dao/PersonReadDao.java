@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Bill.Lin 2024/6/19
  */
 @Transactional(readOnly = true)
-public interface PersonDao extends JpaRepository<Person, Integer> {
+public interface PersonReadDao extends JpaRepository<Person, Integer> {
 }

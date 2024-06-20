@@ -2,9 +2,7 @@ package com.bill.multipleDatasource.controller;
 
 import com.bill.multipleDatasource.entity.Person;
 import com.bill.multipleDatasource.service.PersonService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +22,10 @@ public class Controller {
     @GetMapping("/list")
     public List<Person> listPerson() {
         return personService.listPerson();
+    }
+
+    @PostMapping("")
+    public List<Person> listPerson(@RequestParam("name") String name) {
+        return personService.addPerson(name);
     }
 }

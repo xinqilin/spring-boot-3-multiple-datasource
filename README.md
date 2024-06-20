@@ -3,13 +3,8 @@ docker-compose up -d
 docker-compose down
 ```
 
-```sql
+```
+# list read_db data
 
-CREATE TABLE `test`.`person` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`));
-
-INSERT INTO `test`.`person` (`name`) VALUES ('Bill');
-INSERT INTO `test`.`person` (`name`) VALUES ('Sherry');
+http://localhost:8080/person/list
 ```

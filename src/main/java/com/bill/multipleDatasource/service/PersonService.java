@@ -1,6 +1,7 @@
 package com.bill.multipleDatasource.service;
 
-import com.bill.multipleDatasource.dao.PersonDao;
+import com.bill.multipleDatasource.dao.PersonReadDao;
+import com.bill.multipleDatasource.dao.PersonWriteDao;
 import com.bill.multipleDatasource.entity.Person;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.log4j.Log4j2;
@@ -15,10 +16,12 @@ import java.util.List;
 @Log4j2
 public class PersonService {
 
-    private final PersonDao personDao;
+    private final PersonWriteDao personWriteDao;
+    private final PersonReadDao personReadDao;
 
-    public PersonService(PersonDao personDao) {
-        this.personDao = personDao;
+    public PersonService(PersonWriteDao personWriteDao, PersonReadDao personReadDao) {
+        this.personWriteDao = personWriteDao;
+        this.personReadDao = personReadDao;
     }
 
     @PostConstruct
@@ -26,11 +29,21 @@ public class PersonService {
         log.info("insert mock data");
         Person bill = Person.builder().name("Bill").build();
         Person sherry = Person.builder().name("Sherry").build();
-        personDao.save(bill);
-        personDao.save(sherry);
+        personWriteDao.save(bill);
+        personWriteDao.save(sherry);
     }
 
     public List<Person> listPerson() {
-        return personDao.findAll();
+        var result = personReadDao.findAll();
+        log.info("listPerson: {}", result);
+        return result;
+    }
+
+    public List<Person> addPerson(String name) {
+        log.info("addPerson: {}", name);
+        personWriteDao.saveAndFlush(Person.builder().name(name).build());
+        var result = personWriteDao.findAll();
+        log.info("addPerson: {}", result);
+        return result;
     }
 }

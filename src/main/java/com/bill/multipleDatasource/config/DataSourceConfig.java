@@ -36,17 +36,6 @@ enum DataSourceType {
 @EnableTransactionManagement
 public class DataSourceConfig {
 
-    @Bean(name = "readDataSource")
-    public DataSource readDataSource(@Value("${spring.datasource.read-db.url}") String url,
-                                     @Value("${spring.datasource.read-db.username}") String username,
-                                     @Value("${spring.datasource.read-db.password}") String password) {
-        BasicDataSource readDataSource = new BasicDataSource();
-        readDataSource.setUrl(url);
-        readDataSource.setUsername(username);
-        readDataSource.setPassword(password);
-        return readDataSource;
-    }
-
     @Bean(name = "writeDataSource")
     public DataSource writeDataSource(@Value("${spring.datasource.write-db.url}") String url,
                                       @Value("${spring.datasource.write-db.username}") String username,
@@ -56,6 +45,17 @@ public class DataSourceConfig {
         writeDataSource.setUsername(username);
         writeDataSource.setPassword(password);
         return writeDataSource;
+    }
+
+    @Bean(name = "readDataSource")
+    public DataSource readDataSource(@Value("${spring.datasource.read-db.url}") String url,
+                                     @Value("${spring.datasource.read-db.username}") String username,
+                                     @Value("${spring.datasource.read-db.password}") String password) {
+        BasicDataSource readDataSource = new BasicDataSource();
+        readDataSource.setUrl(url);
+        readDataSource.setUsername(username);
+        readDataSource.setPassword(password);
+        return readDataSource;
     }
 
     @Bean(name = "routingDataSource")

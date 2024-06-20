@@ -1,0 +1,5 @@
+### GET request to example server
+GET http://localhost:8080/person/list
+
+### POST request to example server
+POST http://localhost:8080/person?name=Paul
