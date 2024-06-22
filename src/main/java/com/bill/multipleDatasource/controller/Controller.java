@@ -1,7 +1,8 @@
 package com.bill.multipleDatasource.controller;
 
 import com.bill.multipleDatasource.entity.Person;
-import com.bill.multipleDatasource.service.PersonService;
+import com.bill.multipleDatasource.service.PersonReadService;
+import com.bill.multipleDatasource.service.PersonWriteService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,19 +14,21 @@ import java.util.List;
 @RestController
 public class Controller {
 
-    private final PersonService personService;
+    private final PersonWriteService personWriteService;
+    private final PersonReadService personReadService;
 
-    public Controller(PersonService personService) {
-        this.personService = personService;
+    public Controller(PersonWriteService personWriteService, PersonReadService personReadService) {
+        this.personWriteService = personWriteService;
+        this.personReadService = personReadService;
     }
 
     @GetMapping("/list")
     public List<Person> listPerson() {
-        return personService.listPerson();
+        return personReadService.listPerson();
     }
 
     @PostMapping("")
     public List<Person> listPerson(@RequestParam("name") String name) {
-        return personService.addPerson(name);
+        return personWriteService.addPerson(name);
     }
 }
