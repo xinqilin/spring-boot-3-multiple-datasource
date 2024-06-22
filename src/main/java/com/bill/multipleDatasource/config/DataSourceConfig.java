@@ -70,7 +70,6 @@ public class DataSourceConfig {
         final AbstractRoutingDataSource routingDataSource = new AbstractRoutingDataSource() {
             @Override
             protected Object determineCurrentLookupKey() {
-                System.out.println(TransactionSynchronizationManager.isCurrentTransactionReadOnly());
                 return TransactionSynchronizationManager.isCurrentTransactionReadOnly() ? READ_REPLICA : MASTER;
             }
         };

@@ -6,6 +6,7 @@ import com.bill.multipleDatasource.entity.Person;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,11 +40,10 @@ public class PersonService {
         return result;
     }
 
+    @Transactional(readOnly = false)
     public List<Person> addPerson(String name) {
         log.info("addPerson: {}", name);
         personWriteDao.saveAndFlush(Person.builder().name(name).build());
-        var result = personWriteDao.findAll();
-        log.info("addPerson: {}", result);
-        return result;
+        return personWriteDao.findAll();
     }
 }
