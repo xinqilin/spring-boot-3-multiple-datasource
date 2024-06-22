@@ -39,22 +39,26 @@ public class DataSourceConfig {
     @Bean(name = "writeDataSource")
     public DataSource writeDataSource(@Value("${spring.datasource.write-db.url}") String url,
                                       @Value("${spring.datasource.write-db.username}") String username,
-                                      @Value("${spring.datasource.write-db.password}") String password) {
+                                      @Value("${spring.datasource.write-db.password}") String password,
+                                      @Value("${spring.datasource.write-db.driverClassName}") String driverClassName) {
         BasicDataSource writeDataSource = new BasicDataSource();
         writeDataSource.setUrl(url);
         writeDataSource.setUsername(username);
         writeDataSource.setPassword(password);
+        writeDataSource.setDriverClassName(driverClassName);
         return writeDataSource;
     }
 
     @Bean(name = "readDataSource")
     public DataSource readDataSource(@Value("${spring.datasource.read-db.url}") String url,
                                      @Value("${spring.datasource.read-db.username}") String username,
-                                     @Value("${spring.datasource.read-db.password}") String password) {
+                                     @Value("${spring.datasource.read-db.password}") String password,
+                                     @Value("${spring.datasource.read-db.driverClassName}") String driverClassName) {
         BasicDataSource readDataSource = new BasicDataSource();
         readDataSource.setUrl(url);
         readDataSource.setUsername(username);
         readDataSource.setPassword(password);
+        readDataSource.setDriverClassName(driverClassName);
         return readDataSource;
     }
 
@@ -66,6 +70,7 @@ public class DataSourceConfig {
         final AbstractRoutingDataSource routingDataSource = new AbstractRoutingDataSource() {
             @Override
             protected Object determineCurrentLookupKey() {
+                System.out.println(TransactionSynchronizationManager.isCurrentTransactionReadOnly());
                 return TransactionSynchronizationManager.isCurrentTransactionReadOnly() ? READ_REPLICA : MASTER;
             }
         };
